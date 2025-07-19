@@ -2,20 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Narrative Visualization</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Taylor Swift: The Evolution of Sound</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
-    <h1>Danceability and Energy Histograms</h1>
-  
-    <h2>Danceability</h2>
-    <svg id="danceability" width="700" height="400"></svg>
-  
-    <h2>Energy</h2>
-    <svg id="energy" width="700" height="400"></svg>
-  
-    <script src="script.js"></script>
-  </body>  
+  <div id="container">
+    <h1>The Evolution of Taylor Swift’s Sound</h1>
+    <div id="scene-description"></div>
+    <svg id="viz" width="1100" height="550"></svg>
+    <div id="controls">
+      <button id="prevBtn">Previous</button>
+      <button id="nextBtn">Next</button>
+    </div>
+  </div>
+  <div id="tooltip" style="
+    position: absolute;
+    opacity: 0;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 8px;
+    pointer-events: none;
+    font-size: 12px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+"></div>
+
+
+  <script src="script.js"></script>
+</body>
 </html>

@@ -1,0 +1,41 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: #fdf6f9;
+  color: #333;
+}
+
+#container {
+  max-width: 1100px;
+  margin: auto;
+  text-align: center;
+}
+
+svg {
+  border: 1px solid #ccc;
+  margin-top: 20px;
+}
+
+#controls {
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 1em;
+  background: #e6b7d5;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #d48bbd;
+}
+
+#scene-container svg {
+    font-family: sans-serif;
+  }
+  
