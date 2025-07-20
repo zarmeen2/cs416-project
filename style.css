@@ -35,6 +35,12 @@ button:hover {
   background: #d48bbd;
 }
 
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
 #scene-container svg {
     font-family: sans-serif;
   }

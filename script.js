@@ -159,6 +159,7 @@ function drawAlbumTimeline() {
     popupGroup.append("text")
     .attr("text-anchor", "middle")
     .attr("font-size", "12px")
+    .attr("font-weight", "bold")
     .attr("fill", "#333")
     .attr("y", -20)
     .text("2016–2017 Hiatus");
@@ -228,7 +229,7 @@ function drawAlbumTimeline() {
     popupGroup2.append("rect")
     .attr("x", -14)
     .attr("y", -20) // shifted so the group Y is top of card now
-    .attr("width", 85)
+    .attr("width", 87)
     .attr("height", 60)
     .attr("rx", 10)
     .attr("ry", 10)
@@ -242,6 +243,7 @@ function drawAlbumTimeline() {
     .attr("text-anchor", "right")
     .attr("font-size", "12px")
     .attr("fill", "#333")
+    .attr("font-weight", "bold")
     .attr("x", -10)
     .attr("y", 0) // now below popupGroup center
     .text("The Eras Tour");
@@ -252,7 +254,7 @@ function drawAlbumTimeline() {
     .attr("fill", "#333")
     .attr("x", -3)
     .attr("y", 15) // now below popupGroup center
-    .text("(May 2023–");
+    .text("May 2023–");
 
     popupGroup2.append("text")
     .attr("text-anchor", "right")
@@ -260,10 +262,173 @@ function drawAlbumTimeline() {
     .attr("fill", "#333")
     .attr("x", -2)
     .attr("y", 30) // now below popupGroup center
-    .text("Dec 2025)");
+    .text("Dec 2025");
 
     // ---- end of eras tour popup 
-    
+
+    // --- AMAs 2009 -------
+    const date_start2 = d3.timeParse("%Y-%m-%d")("2014-01-01");
+    const date_end2= d3.timeParse("%Y-%m-%d")("2014-01-01");
+
+    // X positions for the shading
+    const xStart4 = x(date_start2);
+    const xEnd4 = x(date_end2);
+
+    // Height of the shaded band
+    const bandHeight4 = 40;
+
+    // Add a shaded rectangle
+    svgGroup.append("rect")
+    .attr("x", xStart4)
+    .attr("y", centerY - bandHeight4 / 2)
+    .attr("width", xEnd4- xStart4)
+    .attr("height", bandHeight4)
+    .attr("fill", "lightblue")
+    .attr("opacity", 0.3);
+
+    // Popup group centered BELOW shaded area
+    const popupX4 = (xStart4 + xEnd4) / 2;
+    const popupY4 = centerY + bandHeight4 + 60; // vertical position below band
+
+    const popupGroup4 = svgGroup.append("g")
+    .attr("transform", `translate(${popupX4}, ${popupY4})`);
+
+    // Connector line goes UP from popup to shaded area
+    svgGroup.append("line")
+    .attr("x1", popupX4)  // use popupX3, not popupX + 30
+    .attr("y1", popupY4 - 20)  // top of popup card
+    .attr("x2", popupX4)
+    .attr("y2", centerY + bandHeight4 / 2) // bottom of shaded area
+    .attr("stroke", "steelblue")
+    .attr("stroke-width", 2)
+    .attr("stroke-dasharray", "3,2");
+
+
+    // Dot where line meets shaded region
+    svgGroup.append("circle")
+    .attr("cx", popupX4)
+    .attr("cy", centerY + bandHeight4 / 2)
+    .attr("r", 4)
+    .attr("fill", "steelblue");
+
+    // Popup background (rounded rectangle) stays the same
+    popupGroup4.append("rect")
+    .attr("x", -14)
+    .attr("y", -20) // shifted so the group Y is top of card now
+    .attr("width", 160)
+    .attr("height", 50)
+    .attr("rx", 10)
+    .attr("ry", 10)
+    .attr("fill", "white")
+    .attr("stroke", "steelblue")
+    .attr("stroke-width", 1.5)
+    .style("filter", "drop-shadow(0 2px 4px rgba(0,0,0,0.3))");
+
+    // Popup text
+    popupGroup4.append("text")
+    .attr("text-anchor", "right")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold")
+    .attr("fill", "#333")
+    .attr("x", -2)
+    .attr("y", 0) // now below popupGroup center
+    .text("Taylor releases her first");
+
+    popupGroup4.append("text")
+    .attr("text-anchor", "right")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold")
+    .attr("fill", "#333")
+    .attr("x", 35)
+    .attr("y", 15) // now below popupGroup center
+    .text("pop album");
+
+     // ------ ende AMAs popul -------
+
+
+    // -----1989 first pop album popup ------
+    const date_start = d3.timeParse("%Y-%m-%d")("2009-09-13");
+    const date_end= d3.timeParse("%Y-%m-%d")("2009-09-13");
+
+    // X positions for the shading
+    const xStart3 = x(date_start);
+    const xEnd3 = x(date_end);
+
+    // Height of the shaded band
+    const bandHeight3 = 40;
+
+    // Add a shaded rectangle
+    svgGroup.append("rect")
+    .attr("x", xStart3)
+    .attr("y", centerY - bandHeight3 / 2)
+    .attr("width", xEnd3- xStart3)
+    .attr("height", bandHeight3)
+    .attr("fill", "lightblue")
+    .attr("opacity", 0.3);
+
+    // Popup group centered BELOW shaded area
+    const popupX3 = (xStart3 + xEnd3) / 2;
+    const popupY3 = centerY + bandHeight3 + 60; // vertical position below band
+
+    const popupGroup3 = svgGroup.append("g")
+    .attr("transform", `translate(${popupX3}, ${popupY3})`);
+
+    // Connector line goes UP from popup to shaded area
+    svgGroup.append("line")
+    .attr("x1", popupX3)  // use popupX3, not popupX + 30
+    .attr("y1", popupY3 - 20)  // top of popup card
+    .attr("x2", popupX3)
+    .attr("y2", centerY + bandHeight3 / 2) // bottom of shaded area
+    .attr("stroke", "steelblue")
+    .attr("stroke-width", 2)
+    .attr("stroke-dasharray", "3,2");
+
+
+    // Dot where line meets shaded region
+    svgGroup.append("circle")
+    .attr("cx", popupX3)
+    .attr("cy", centerY + bandHeight3 / 2)
+    .attr("r", 4)
+    .attr("fill", "steelblue");
+
+    // Popup background (rounded rectangle) stays the same
+    popupGroup3.append("rect")
+    .attr("x", -14)
+    .attr("y", -20) // shifted so the group Y is top of card now
+    .attr("width", 160)
+    .attr("height", 60)
+    .attr("rx", 10)
+    .attr("ry", 10)
+    .attr("fill", "white")
+    .attr("stroke", "steelblue")
+    .attr("stroke-width", 1.5)
+    .style("filter", "drop-shadow(0 2px 4px rgba(0,0,0,0.3))");
+
+    // Popup text
+    popupGroup3.append("text")
+    .attr("text-anchor", "right")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold")
+    .attr("fill", "#333")
+    .attr("x", 30)
+    .attr("y", 0) // now below popupGroup center
+    .text("2009 AMAs");
+
+    popupGroup3.append("text")
+    .attr("text-anchor", "right")
+    .attr("font-size", "11px")
+    .attr("fill", "#333")
+    .attr("x", -3)
+    .attr("y", 15) // now below popupGroup center
+    .text("Kanye interrupts her award.");
+
+    popupGroup3.append("text")
+    .attr("text-anchor", "right")
+    .attr("font-size", "11px")
+    .attr("fill", "#333")
+    .attr("x", 28)
+    .attr("y", 30) // now below popupGroup center
+    .text("Sept 13, 2009");
     
       // Draw vertical lines for each album
         const lengths = [50, 130, 100, 150, 200, 100, 150, 100, 200];
@@ -337,317 +502,420 @@ function drawAlbumTimeline() {
     });
   }
   
-  
-  
-  
 
-//   function drawAcousticEnergy() {
-//     d3.csv("data/swift_data.csv").then(data => {
-//       // Parse dates for sorting
-//       const parseDate = d3.timeParse("%Y-%m-%d");
-//       data.forEach(d => {
-//         d.release_date = parseDate(d.release_date);
-//         d.acousticness = +d.acousticness;
-//         d.energy = +d.energy;
-//       });
+  function drawAcousticEnergy() {
+    d3.csv("data/swift_data.csv").then(data => {
+      const parseDate = d3.timeParse("%Y-%m-%d");
+      data.forEach(d => {
+        d.release_date = parseDate(d.release_date);
+        d.acousticness = +d.acousticness;
+        d.energy = +d.energy;
+      });
   
-//       // Group by album, compute average acousticness and energy
-//       const albumStats = Array.from(
-//         d3.group(data, d => d.album),
-//         ([album, tracks]) => {
-//           return {
-//             album: album,
-//             release_date: d3.min(tracks, d => d.release_date),
-//             acousticness: d3.mean(tracks, d => d.acousticness),
-//             energy: d3.mean(tracks, d => d.energy)
-//           };
-//         }
-//       ).sort((a, b) => a.release_date - b.release_date); // Sort chronologically
+      // Group by album, compute averages
+      const albumStats = Array.from(
+        d3.group(data, d => d.album),
+        ([album, tracks]) => ({
+          album: album,
+          release_date: d3.min(tracks, d => d.release_date),
+          acousticness: d3.mean(tracks, d => d.acousticness),
+          energy: d3.mean(tracks, d => d.energy)
+        })
+      ).sort((a, b) => a.release_date - b.release_date);
   
-//       // Set up dimensions
-//       const margin = { top: 40, right: 30, bottom: 100, left: 60 };
-//       const innerWidth = width - margin.left - margin.right;
-//       const innerHeight = height - margin.top - margin.bottom;
+      const margin = { top: 40, right: 30, bottom: 150, left: 60 };
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
   
-//       const x = d3.scaleBand()
-//         .domain(albumStats.map(d => d.album))
-//         .range([0, innerWidth])
-//         .padding(0.3);
+      const svgGroup = svg.append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
   
-//       const y = d3.scaleLinear()
-//         .domain([0, 1])
-//         .range([innerHeight, 0]);
+      // Scales
+      const x0 = d3.scaleBand()
+        .domain(albumStats.map(d => d.album))
+        .range([0, innerWidth])
+        .paddingInner(0.2);
   
-//       const svgGroup = svg.append("g")
-//         .attr("transform", `translate(${margin.left},${margin.top})`);
+      const x1 = d3.scaleBand()
+        .domain(["acousticness", "energy"])
+        .range([0, x0.bandwidth()])
+        .padding(0.05);
   
-//       // Y Axis
-//       svgGroup.append("g")
-//         .call(d3.axisLeft(y));
+      const y = d3.scaleLinear()
+        .domain([0, 1])
+        .range([innerHeight, 0]);
   
-//       // X Axis
-//       svgGroup.append("g")
-//         .attr("transform", `translate(0, ${innerHeight})`)
-//         .call(d3.axisBottom(x))
-//         .selectAll("text")
-//         .attr("transform", "rotate(-45)")
-//         .style("text-anchor", "end");
+      const color = d3.scaleOrdinal()
+        .domain(["acousticness", "energy"])
+        .range(["#a6cee3", "#fdbf6f"]);
   
-//       // Acousticness dots
-//       svgGroup.selectAll(".dot.acousticness")
-//         .data(albumStats)
-//         .enter()
-//         .append("circle")
-//         .attr("class", "dot acousticness")
-//         .attr("cx", d => x(d.album) + x.bandwidth() / 2 - 10)
-//         .attr("cy", d => y(d.acousticness))
-//         .attr("r", 6)
-//         .attr("fill", "#1f77b4");
+      // Bars
+      svgGroup.selectAll("g.album")
+        .data(albumStats)
+        .enter()
+        .append("g")
+        .attr("class", "album")
+        .attr("transform", d => `translate(${x0(d.album)},0)`)
+        .selectAll("rect")
+        .data(d => [
+          { key: "acousticness", value: d.acousticness },
+          { key: "energy", value: d.energy }
+        ])
+        .enter()
+        .append("rect")
+        .attr("x", d => x1(d.key))
+        .attr("y", d => y(d.value))
+        .attr("width", x1.bandwidth())
+        .attr("height", d => innerHeight - y(d.value))
+        .attr("fill", d => color(d.key));
   
-//       // Energy dots
-//       svgGroup.selectAll(".dot.energy")
-//         .data(albumStats)
-//         .enter()
-//         .append("circle")
-//         .attr("class", "dot energy")
-//         .attr("cx", d => x(d.album) + x.bandwidth() / 2 + 10)
-//         .attr("cy", d => y(d.energy))
-//         .attr("r", 6)
-//         .attr("fill", "#ff7f0e");
+      // Y Axis
+      svgGroup.append("g")
+        .call(d3.axisLeft(y));
   
-//       // Legend
-//       const legend = svgGroup.append("g")
-//         .attr("transform", `translate(${innerWidth - 100}, 10)`);
-  
-//       legend.append("circle")
-//         .attr("r", 6)
-//         .attr("cy", 0)
-//         .attr("fill", "#1f77b4");
-  
-//       legend.append("text")
-//         .text("Acousticness")
-//         .attr("x", 12)
-//         .attr("y", 4);
-  
-//       legend.append("circle")
-//         .attr("r", 6)
-//         .attr("cy", 20)
-//         .attr("fill", "#ff7f0e");
-  
-//       legend.append("text")
-//         .text("Energy")
-//         .attr("x", 12)
-//         .attr("y", 24);
-//     });
-//   }
-  
+      // X Axis
+        const xAxisGroup = svgGroup.append("g")
+        .attr("transform", `translate(0, ${innerHeight})`)
+        .call(d3.axisBottom(x0))
+        .selectAll("text")
+        .attr("transform", "rotate(-45)")
+        .style("text-anchor", "end");
 
-//   function drawValenceDanceability() {
-//     d3.csv("data/swift_data.csv").then(data => {
-//       const parseDate = d3.timeParse("%Y-%m-%d");
-//       data.forEach(d => {
-//         d.release_date = parseDate(d.release_date);
-//         d.valence = +d.valence;
-//         d.danceability = +d.danceability;
-//       });
+      // X Axis title
+      svgGroup.append("text")
+        .attr("text-anchor", "middle")
+        .attr("x", innerWidth / 2)
+        .attr("y", innerHeight + 70)
+        .attr("font-size", "14px")
+        .attr("fill", "#333")
+        .text("Album");
   
-//       // Group by album
-//       const albumStats = Array.from(
-//         d3.group(data, d => d.album),
-//         ([album, tracks]) => ({
-//           album,
-//           release_date: d3.min(tracks, d => d.release_date),
-//           valence: d3.mean(tracks, d => d.valence),
-//           danceability: d3.mean(tracks, d => d.danceability)
-//         })
-//       ).sort((a, b) => a.release_date - b.release_date);
+      // --- Popup for early album gap ---
+      const firstAlbum = albumStats[0];
+      const popupXLeft = Math.max(0, x0(firstAlbum.album) - 100);
+      const popupYLeft = 20; // near top of chart
   
-//       const margin = { top: 40, right: 30, bottom: 100, left: 60 };
-//       const innerWidth = width - margin.left - margin.right;
-//       const innerHeight = height - margin.top - margin.bottom;
+      const popupGroupLeft = svgGroup.append("g")
+        .attr("transform", `translate(${popupXLeft}, ${popupYLeft})`);
   
-//       const x = d3.scaleBand()
-//         .domain(albumStats.map(d => d.album))
-//         .range([0, innerWidth])
-//         .padding(0.3);
+      popupGroupLeft.append("rect")
+        .attr("x", -80)
+        .attr("y", -20)
+        .attr("width", 160)
+        .attr("height", 40)
+        .attr("rx", 8)
+        .attr("ry", 8)
+        .attr("fill", "white")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+        .style("filter", "drop-shadow(0 2px 4px rgba(0,0,0,0.3))");
   
-//       const y = d3.scaleLinear()
-//         .domain([0, 1])
-//         .range([innerHeight, 0]);
+      popupGroupLeft.append("text")
+        .attr("text-anchor", "middle")
+        .attr("font-size", "12px")
+        .attr("fill", "#333")
+        .attr("y", 0)
+        .text("Large gap between early albums");
   
-//       const svgGroup = svg.append("g")
-//         .attr("transform", `translate(${margin.left},${margin.top})`);
+      // --- Popup for Midnights & TTPD ---
+      const midnights = albumStats.find(d => d.album === "Midnights");
+      const torturedPoets = albumStats.find(d => d.album === "The Tortured Poets Department");
   
-//       svgGroup.append("g")
-//         .call(d3.axisLeft(y));
+      if (midnights && torturedPoets) {
+        const midX = x0(midnights.album) + x0.bandwidth() / 2;
+        const torturedX = x0(torturedPoets.album) + x0.bandwidth() / 2;
+        const popupX = (midX + torturedX) / 2;
+        const popupY = 60;
   
-//       svgGroup.append("g")
-//         .attr("transform", `translate(0, ${innerHeight})`)
-//         .call(d3.axisBottom(x))
-//         .selectAll("text")
-//         .attr("transform", "rotate(-45)")
-//         .style("text-anchor", "end");
+        const popupGroup = svgGroup.append("g")
+          .attr("transform", `translate(${popupX}, ${popupY})`);
   
-//       // Valence
-//       svgGroup.selectAll(".valence-dot")
-//         .data(albumStats)
-//         .enter()
-//         .append("circle")
-//         .attr("class", "valence-dot")
-//         .attr("cx", d => x(d.album) + x.bandwidth() / 2 - 10)
-//         .attr("cy", d => y(d.valence))
-//         .attr("r", 6)
-//         .attr("fill", "#7fc97f");
+        popupGroup.append("rect")
+          .attr("x", -125)
+          .attr("y", 0)
+          .attr("width", 250)
+          .attr("height", 55)
+          .attr("rx", 8)
+          .attr("ry", 8)
+          .attr("fill", "white")
+          .attr("stroke", "steelblue")
+          .attr("stroke-width", 1.5)
+          .style("filter", "drop-shadow(0 2px 4px rgba(0,0,0,0.3))");
   
-//       // Danceability
-//       svgGroup.selectAll(".dance-dot")
-//         .data(albumStats)
-//         .enter()
-//         .append("circle")
-//         .attr("class", "dance-dot")
-//         .attr("cx", d => x(d.album) + x.bandwidth() / 2 + 10)
-//         .attr("cy", d => y(d.danceability))
-//         .attr("r", 6)
-//         .attr("fill", "#beaed4");
+        popupGroup.append("text")
+          .attr("text-anchor", "middle")
+          .attr("font-size", "12px")
+          .attr("fill", "#333")
+          .attr("y", 15)
+          .text("Taylor's 2 recent non-recorded");
+        popupGroup.append("text")
+          .attr("text-anchor", "middle")
+          .attr("font-size", "12px")
+          .attr("fill", "#333")
+          .attr("y", 30)
+          .text("albums have same levels of acousticness");
+        popupGroup.append("text")
+          .attr("text-anchor", "middle")
+          .attr("font-size", "12px")
+          .attr("fill", "#333")
+          .attr("y", 45)
+          .text("and energy");
+      }
   
-//       // Legend
-//       const legend = svgGroup.append("g")
-//         .attr("transform", `translate(${innerWidth - 100}, 10)`);
+      // Legend
+      const legend = svgGroup.append("g")
+        .attr("transform", `translate(${innerWidth - 120}, 10)`);
   
-//       legend.append("circle").attr("r", 6).attr("cy", 0).attr("fill", "#7fc97f");
-//       legend.append("text").text("Valence").attr("x", 12).attr("y", 4);
+      legend.selectAll("rect")
+        .data(["acousticness", "energy"])
+        .enter()
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", (d, i) => i * 20)
+        .attr("width", 12)
+        .attr("height", 12)
+        .attr("fill", d => color(d));
   
-//       legend.append("circle").attr("r", 6).attr("cy", 20).attr("fill", "#beaed4");
-//       legend.append("text").text("Danceability").attr("x", 12).attr("y", 24);
-//     });
-//   }
-  
-//   function drawInteractiveExplorer() {
-//     d3.csv("data/swift_data.csv").then(data => {
-//       const parseDate = d3.timeParse("%Y-%m-%d");
-//       data.forEach(d => {
-//         d.release_date = parseDate(d.release_date);
-//         d.energy = +d.energy;
-//         d.valence = +d.valence;
-//         d.danceability = +d.danceability;
-//         d.acousticness = +d.acousticness;
-//         d.popularity = +d.popularity;
-//       });
-  
-//       const margin = { top: 40, right: 30, bottom: 60, left: 60 };
-//       const innerWidth = width - margin.left - margin.right;
-//       const innerHeight = height - margin.top - margin.bottom;
-  
-//       const svgGroup = svg.append("g")
-//         .attr("transform", `translate(${margin.left},${margin.top})`);
-  
-//       const x = d3.scaleLinear()
-//         .domain([0, 1])
-//         .range([0, innerWidth]);
-  
-//       const y = d3.scaleLinear()
-//         .domain([0, 1])
-//         .range([innerHeight, 0]);
-  
-//       // Axes
-//       svgGroup.append("g")
-//         .attr("transform", `translate(0, ${innerHeight})`)
-//         .call(d3.axisBottom(x));
-  
-//       svgGroup.append("g")
-//         .call(d3.axisLeft(y));
-  
-//       // Axis Labels
-//       svgGroup.append("text")
-//         .attr("x", innerWidth / 2)
-//         .attr("y", innerHeight + 40)
-//         .attr("text-anchor", "middle")
-//         .text("Energy");
-  
-//       svgGroup.append("text")
-//         .attr("x", -innerHeight / 2)
-//         .attr("y", -40)
-//         .attr("transform", "rotate(-90)")
-//         .attr("text-anchor", "middle")
-//         .text("Valence");
-  
-//       // Color scale
-//       const color = d3.scaleOrdinal(d3.schemeCategory10);
-  
-//       // Tooltip
-//       const tooltip = d3.select("body").append("div")
-//         .attr("class", "tooltip")
-//         .style("position", "absolute")
-//         .style("padding", "6px")
-//         .style("background", "white")
-//         .style("border", "1px solid #ccc")
-//         .style("pointer-events", "none")
-//         .style("opacity", 0);
-  
-//       // Dots
-//       svgGroup.selectAll("circle")
-//         .data(data)
-//         .enter()
-//         .append("circle")
-//         .attr("cx", d => x(d.energy))
-//         .attr("cy", d => y(d.valence))
-//         .attr("r", 5)
-//         .attr("fill", d => color(d.album))
-//         .attr("opacity", 0.7)
-//         .on("mouseover", (event, d) => {
-//           tooltip.transition().duration(100).style("opacity", 0.9);
-//           tooltip.html(`
-//             <strong>${d.name}</strong><br/>
-//             Album: ${d.album}<br/>
-//             Energy: ${d.energy.toFixed(2)}<br/>
-//             Valence: ${d.valence.toFixed(2)}
-//           `)
-//           .style("left", event.pageX + "px")
-//           .style("top", event.pageY - 28 + "px");
-//         })
-//         .on("mouseout", () => {
-//           tooltip.transition().duration(200).style("opacity", 0);
-//         });
-//     });
-//   }
-  
-
-  function updateButtons() {
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-  
-    if (currentScene === 0) {
-      prevBtn.style.display = "none";
-    } else {
-      prevBtn.style.display = "inline";
-    }
-  
-    if (currentScene === sceneDescriptions.length - 1) {
-      nextBtn.style.display = "none";
-    } else {
-      nextBtn.style.display = "inline";
-    }
+      legend.selectAll("text")
+        .data(["acousticness", "energy"])
+        .enter()
+        .append("text")
+        .attr("x", 20)
+        .attr("y", (d, i) => i * 20 + 10)
+        .text(d => d)
+        .attr("font-size", "12px")
+        .attr("fill", "#333");
+    });
   }
   
-  d3.select("#nextBtn").on("click", () => {
+  
+  
+
+
+  function drawValenceDanceability() {
+    d3.csv("data/swift_data.csv").then(data => {
+      const parseDate = d3.timeParse("%Y-%m-%d");
+      data.forEach(d => {
+        d.release_date = parseDate(d.release_date);
+        d.valence = +d.valence;
+        d.danceability = +d.danceability;
+      });
+  
+      // Group by album
+      const albumStats = Array.from(
+        d3.group(data, d => d.album),
+        ([album, tracks]) => ({
+          album,
+          release_date: d3.min(tracks, d => d.release_date),
+          valence: d3.mean(tracks, d => d.valence),
+          danceability: d3.mean(tracks, d => d.danceability)
+        })
+      ).sort((a, b) => a.release_date - b.release_date);
+  
+      const margin = { top: 40, right: 30, bottom: 150, left: 60 };
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
+  
+      const svgGroup = svg.append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+  
+      // Scales for grouped bar chart
+      const x0 = d3.scaleBand()
+        .domain(albumStats.map(d => d.album))
+        .range([0, innerWidth])
+        .paddingInner(0.2);
+  
+      const x1 = d3.scaleBand()
+        .domain(["valence", "danceability"])
+        .range([0, x0.bandwidth()])
+        .padding(0.05);
+  
+      const y = d3.scaleLinear()
+        .domain([0, 1])
+        .range([innerHeight, 0]);
+  
+      const color = d3.scaleOrdinal()
+        .domain(["valence", "danceability"])
+        .range(["#7fc97f", "#beaed4"]);
+  
+      // Draw bars
+      svgGroup.selectAll("g.album")
+        .data(albumStats)
+        .enter()
+        .append("g")
+        .attr("class", "album")
+        .attr("transform", d => `translate(${x0(d.album)},0)`)
+        .selectAll("rect")
+        .data(d => [
+          { key: "valence", value: d.valence },
+          { key: "danceability", value: d.danceability }
+        ])
+        .enter()
+        .append("rect")
+        .attr("x", d => x1(d.key))
+        .attr("y", d => y(d.value))
+        .attr("width", x1.bandwidth())
+        .attr("height", d => innerHeight - y(d.value))
+        .attr("fill", d => color(d.key));
+  
+      // Y Axis
+      svgGroup.append("g")
+        .call(d3.axisLeft(y));
+  
+      // X Axis with diagonal labels
+      svgGroup.append("g")
+        .attr("transform", `translate(0, ${innerHeight})`)
+        .call(d3.axisBottom(x0))
+        .selectAll("text")
+        .attr("transform", "rotate(-45)")
+        .style("text-anchor", "end");
+  
+      // Legend
+      const legend = svgGroup.append("g")
+        .attr("transform", `translate(${innerWidth - 120}, 10)`);
+  
+      const legendData = ["valence", "danceability"];
+      legend.selectAll("rect")
+        .data(legendData)
+        .enter()
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", (d, i) => i * 20)
+        .attr("width", 12)
+        .attr("height", 12)
+        .attr("fill", d => color(d));
+  
+      legend.selectAll("text")
+        .data(legendData)
+        .enter()
+        .append("text")
+        .attr("x", 20)
+        .attr("y", (d, i) => i * 20 + 10)
+        .text(d => d)
+        .attr("font-size", "12px")
+        .attr("fill", "#333");
+    });
+  }
+  
+
+function drawInteractiveExplorer() {
+d3.csv("data/swift_data.csv").then(data => {
+    const parseDate = d3.timeParse("%Y-%m-%d");
+    data.forEach(d => {
+    d.release_date = parseDate(d.release_date);
+    d.energy = +d.energy;
+    d.valence = +d.valence;
+    d.danceability = +d.danceability;
+    d.acousticness = +d.acousticness;
+    d.popularity = +d.popularity;
+    });
+
+    const margin = { top: 40, right: 30, bottom: 60, left: 60 };
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+
+    const svgGroup = svg.append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleLinear()
+    .domain([0, 1])
+    .range([0, innerWidth]);
+
+    const y = d3.scaleLinear()
+    .domain([0, 1])
+    .range([innerHeight, 0]);
+
+    // Axes
+    svgGroup.append("g")
+    .attr("transform", `translate(0, ${innerHeight})`)
+    .call(d3.axisBottom(x));
+
+    svgGroup.append("g")
+    .call(d3.axisLeft(y));
+
+    // Axis Labels
+    svgGroup.append("text")
+    .attr("x", innerWidth / 2)
+    .attr("y", innerHeight + 40)
+    .attr("text-anchor", "middle")
+    .text("Energy");
+
+    svgGroup.append("text")
+    .attr("x", -innerHeight / 2)
+    .attr("y", -40)
+    .attr("transform", "rotate(-90)")
+    .attr("text-anchor", "middle")
+    .text("Valence");
+
+    // Color scale
+    const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+    // Tooltip
+    const tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("position", "absolute")
+    .style("padding", "6px")
+    .style("background", "white")
+    .style("border", "1px solid #ccc")
+    .style("pointer-events", "none")
+    .style("opacity", 0);
+
+    // Dots
+    svgGroup.selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("cx", d => x(d.energy))
+    .attr("cy", d => y(d.valence))
+    .attr("r", 5)
+    .attr("fill", d => color(d.album))
+    .attr("opacity", 0.7)
+    .on("mouseover", (event, d) => {
+        tooltip.transition().duration(100).style("opacity", 0.9);
+        tooltip.html(`
+        <strong>${d.name}</strong><br/>
+        Album: ${d.album}<br/>
+        Energy: ${d.energy.toFixed(2)}<br/>
+        Valence: ${d.valence.toFixed(2)}
+        `)
+        .style("left", event.pageX + "px")
+        .style("top", event.pageY - 28 + "px");
+    })
+    .on("mouseout", () => {
+        tooltip.transition().duration(200).style("opacity", 0);
+    });
+});
+}
+
+
+function updateButtons() {
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    // Disable or enable based on the scene
+    prevBtn.disabled = (currentScene === 0);
+    nextBtn.disabled = (currentScene === sceneDescriptions.length - 1);
+}
+
+d3.select("#nextBtn").on("click", () => {
     if (currentScene < sceneDescriptions.length - 1) {
-      currentScene++;
-      renderScene(currentScene);
-      updateButtons();
+        currentScene++;
+        renderScene(currentScene);
+        updateButtons();
     }
-  });
-  
-  d3.select("#prevBtn").on("click", () => {
+});
+
+d3.select("#prevBtn").on("click", () => {
     if (currentScene > 0) {
-      currentScene--;
-      renderScene(currentScene);
-      updateButtons();
+        currentScene--;
+        renderScene(currentScene);
+        updateButtons();
     }
-  });
-  
-  d3.csv("data/swift_data.csv").then(data => {
+});
+
+d3.csv("data/swift_data.csv").then(data => {
     console.log("Data loaded:", data);
     renderScene(currentScene);
     updateButtons();
-  });
+});
 
