@@ -769,6 +769,16 @@ function drawAlbumTimeline() {
         .selectAll("text")
         .attr("transform", "rotate(-45)")
         .style("text-anchor", "end");
+
+    
+        // X Axis title
+      svgGroup.append("text")
+      .attr("text-anchor", "middle")
+      .attr("x", innerWidth / 2)
+      .attr("y", innerHeight + 70)
+      .attr("font-size", "14px")
+      .attr("fill", "#333")
+      .text("Album");
   
       // Legend
       const legend = svgGroup.append("g")
