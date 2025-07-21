@@ -5,11 +5,13 @@ const height = +svg.attr("height");
 
 // Scene data
 const sceneDescriptions = [
-  "Scene 1: An overview of Taylor Swift’s albums over time.",
-  "Scene 2: Acousticness and Energy across albums.",
-  "Scene 3: Valence and Danceability throughout the years.",
-  "Explore: Interact with the full dataset."
-];
+    "",
+    "Timeline of Taylor Swift's Musical Career",
+    "Acousticness and Energy Across Albums.",
+    "Valence and Danceability Across Albums",
+    ""
+  ];
+  
 
 // A mapping of album names to their image file paths
 const albumImages = {
@@ -35,19 +37,69 @@ function clearScene() {
 }
 
 function renderScene(index) {
-  clearScene();
-  d3.select("#scene-description").text(sceneDescriptions[index]);
+    clearScene();
+    d3.select("#scene-description").text(sceneDescriptions[index]);
+  
+    if (index === 0) {
+      // Home scene: display a simple welcome message in the SVG
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height / 2)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "24px")
+        .attr("fill", "#333")
+        .text("How has Taylor Swift's music changed over the course of her albums?");
+        
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height / 2 + 40)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "16px")
+        .attr("fill", "#666")
+        .text("Click Next to start exploring →");
+  
+    } else if (index === 1) {
+      drawAlbumTimeline();
+    } else if (index === 2) {
+      drawAcousticEnergy();
+    } else if (index === 3) {
+      drawValenceDanceability();
+    } else if (index === 4) {
+      // Conclusion scene
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height / 2 - 20)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "24px")
+        .attr("fill", "#333")
+        .text("Conclusion");
+  
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height / 2 + 20)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "16px")
+        .attr("fill", "#666")
+        .text("Over the past 15 years, Taylor Swift has maintained high levels of danceability in her music, while keeping low levels of valence.");
+        
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height / 2 + 50)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "16px")
+        .attr("fill", "#666")
+        .text("However, in recent album releases, she has created albums with equal levels of acousticness and energy.");
 
-  if (index === 0) {
-    drawAlbumTimeline();
-  } else if (index === 1) {
-    drawAcousticEnergy();
-  } else if (index === 2) {
-    drawValenceDanceability();
-  } else {
-    drawInteractiveExplorer();
+        svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height / 2 + 80)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "16px")
+        .attr("fill", "#666")
+        .text("Over the years, her acousticness varied, but her last two new albums it has matched energy levels.");
+    }
   }
-}
+  
 
 function drawAlbumTimeline() {
     d3.csv("data/swift_data.csv").then(data => {
@@ -599,9 +651,9 @@ function drawAlbumTimeline() {
         .attr("transform", `translate(${popupXLeft}, ${popupYLeft})`);
   
       popupGroupLeft.append("rect")
-        .attr("x", -80)
-        .attr("y", -20)
-        .attr("width", 160)
+        .attr("x", 50)
+        .attr("y", -3)
+        .attr("width", 300)
         .attr("height", 40)
         .attr("rx", 8)
         .attr("ry", 8)
@@ -614,8 +666,17 @@ function drawAlbumTimeline() {
         .attr("text-anchor", "middle")
         .attr("font-size", "12px")
         .attr("fill", "#333")
-        .attr("y", 0)
-        .text("Large gap between early albums");
+        .attr("x", 200)
+        .attr("y", 15)
+        .text("Her early albums have much higher energy levels");
+
+        popupGroupLeft.append("text")
+        .attr("text-anchor", "middle")
+        .attr("font-size", "12px")
+        .attr("fill", "#333")
+        .attr("x", 200)
+        .attr("y", 30)
+        .text("than acousticness levels.");
   
       // --- Popup for Midnights & TTPD ---
       const midnights = albumStats.find(d => d.album === "Midnights");
@@ -624,9 +685,14 @@ function drawAlbumTimeline() {
       if (midnights && torturedPoets) {
         const midX = x0(midnights.album) + x0.bandwidth() / 2;
         const torturedX = x0(torturedPoets.album) + x0.bandwidth() / 2;
+
+        // Use energy bar heights as anchor points for the lines
+        const midY = y(midnights.energy);
+        const torturedY = y(torturedPoets.energy);
+
         const popupX = (midX + torturedX) / 2;
         const popupY = 60;
-  
+    
         const popupGroup = svgGroup.append("g")
           .attr("transform", `translate(${popupX}, ${popupY})`);
   
@@ -660,6 +726,38 @@ function drawAlbumTimeline() {
           .attr("fill", "#333")
           .attr("y", 45)
           .text("and energy");
+
+        // Connector lines
+        svgGroup.append("line")
+        .attr("x1", popupX)
+        .attr("y1", popupY + 55) // bottom center of popup
+        .attr("x2", midX)
+        .attr("y2", midY)
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+        .attr("stroke-dasharray", "3,2");
+
+        svgGroup.append("line")
+        .attr("x1", popupX)
+        .attr("y1", popupY + 55)
+        .attr("x2", torturedX)
+        .attr("y2", torturedY)
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+        .attr("stroke-dasharray", "3,2");
+
+        // Circles at ends of lines
+        svgGroup.append("circle")
+        .attr("cx", midX)
+        .attr("cy", midY)
+        .attr("r", 4)
+        .attr("fill", "steelblue");
+
+        svgGroup.append("circle")
+        .attr("cx", torturedX)
+        .attr("cy", torturedY)
+        .attr("r", 4)
+        .attr("fill", "steelblue");
       }
   
       // Legend
@@ -688,9 +786,6 @@ function drawAlbumTimeline() {
     });
   }
   
-  
-  
-
 
   function drawValenceDanceability() {
     d3.csv("data/swift_data.csv").then(data => {
@@ -701,7 +796,6 @@ function drawAlbumTimeline() {
         d.danceability = +d.danceability;
       });
   
-      // Group by album
       const albumStats = Array.from(
         d3.group(data, d => d.album),
         ([album, tracks]) => ({
@@ -719,7 +813,6 @@ function drawAlbumTimeline() {
       const svgGroup = svg.append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
   
-      // Scales for grouped bar chart
       const x0 = d3.scaleBand()
         .domain(albumStats.map(d => d.album))
         .range([0, innerWidth])
@@ -736,9 +829,8 @@ function drawAlbumTimeline() {
   
       const color = d3.scaleOrdinal()
         .domain(["valence", "danceability"])
-        .range(["#7fc97f", "#beaed4"]);
+        .range(["#a6dba0", "#c7b9e2"]); // pastel colors
   
-      // Draw bars
       svgGroup.selectAll("g.album")
         .data(albumStats)
         .enter()
@@ -758,29 +850,22 @@ function drawAlbumTimeline() {
         .attr("height", d => innerHeight - y(d.value))
         .attr("fill", d => color(d.key));
   
-      // Y Axis
-      svgGroup.append("g")
-        .call(d3.axisLeft(y));
-  
-      // X Axis with diagonal labels
+      svgGroup.append("g").call(d3.axisLeft(y));
       svgGroup.append("g")
         .attr("transform", `translate(0, ${innerHeight})`)
         .call(d3.axisBottom(x0))
         .selectAll("text")
         .attr("transform", "rotate(-45)")
         .style("text-anchor", "end");
-
-    
-        // X Axis title
-      svgGroup.append("text")
-      .attr("text-anchor", "middle")
-      .attr("x", innerWidth / 2)
-      .attr("y", innerHeight + 70)
-      .attr("font-size", "14px")
-      .attr("fill", "#333")
-      .text("Album");
   
-      // Legend
+      svgGroup.append("text")
+        .attr("text-anchor", "middle")
+        .attr("x", innerWidth / 2)
+        .attr("y", innerHeight + 70)
+        .attr("font-size", "14px")
+        .attr("fill", "#333")
+        .text("Album");
+  
       const legend = svgGroup.append("g")
         .attr("transform", `translate(${innerWidth - 120}, 10)`);
   
@@ -804,98 +889,44 @@ function drawAlbumTimeline() {
         .text(d => d)
         .attr("font-size", "12px")
         .attr("fill", "#333");
+  
+      // --- Annotation: Danceability > Valence ---
+    const popupX = innerWidth / 2;
+    const popupY = 30;
+
+    const popupGroup = svgGroup.append("g")
+    .attr("transform", `translate(${popupX}, ${popupY})`);
+
+    popupGroup.append("rect")
+    .attr("x", -120)
+    .attr("y", -20)
+    .attr("width", 240)
+    .attr("height", 40)
+    .attr("rx", 8)
+    .attr("ry", 8)
+    .attr("fill", "white")
+    .attr("stroke", "steelblue")
+    .attr("stroke-width", 1.5)
+    .style("filter", "drop-shadow(0 2px 4px rgba(0,0,0,0.3))");
+
+    popupGroup.append("text")
+    .attr("text-anchor", "middle")
+    .attr("font-size", "12px")
+    .attr("fill", "#333")
+    .attr("y", -2)
+    .text("Across all albums, danceability");
+    popupGroup.append("text")
+    .attr("text-anchor", "middle")
+    .attr("font-size", "12px")
+    .attr("fill", "#333")
+    .attr("y", 12)
+    .text("is consistently higher than valence");
+
     });
   }
   
+  
 
-function drawInteractiveExplorer() {
-d3.csv("data/swift_data.csv").then(data => {
-    const parseDate = d3.timeParse("%Y-%m-%d");
-    data.forEach(d => {
-    d.release_date = parseDate(d.release_date);
-    d.energy = +d.energy;
-    d.valence = +d.valence;
-    d.danceability = +d.danceability;
-    d.acousticness = +d.acousticness;
-    d.popularity = +d.popularity;
-    });
-
-    const margin = { top: 40, right: 30, bottom: 60, left: 60 };
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
-
-    const svgGroup = svg.append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-    const x = d3.scaleLinear()
-    .domain([0, 1])
-    .range([0, innerWidth]);
-
-    const y = d3.scaleLinear()
-    .domain([0, 1])
-    .range([innerHeight, 0]);
-
-    // Axes
-    svgGroup.append("g")
-    .attr("transform", `translate(0, ${innerHeight})`)
-    .call(d3.axisBottom(x));
-
-    svgGroup.append("g")
-    .call(d3.axisLeft(y));
-
-    // Axis Labels
-    svgGroup.append("text")
-    .attr("x", innerWidth / 2)
-    .attr("y", innerHeight + 40)
-    .attr("text-anchor", "middle")
-    .text("Energy");
-
-    svgGroup.append("text")
-    .attr("x", -innerHeight / 2)
-    .attr("y", -40)
-    .attr("transform", "rotate(-90)")
-    .attr("text-anchor", "middle")
-    .text("Valence");
-
-    // Color scale
-    const color = d3.scaleOrdinal(d3.schemeCategory10);
-
-    // Tooltip
-    const tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("position", "absolute")
-    .style("padding", "6px")
-    .style("background", "white")
-    .style("border", "1px solid #ccc")
-    .style("pointer-events", "none")
-    .style("opacity", 0);
-
-    // Dots
-    svgGroup.selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cx", d => x(d.energy))
-    .attr("cy", d => y(d.valence))
-    .attr("r", 5)
-    .attr("fill", d => color(d.album))
-    .attr("opacity", 0.7)
-    .on("mouseover", (event, d) => {
-        tooltip.transition().duration(100).style("opacity", 0.9);
-        tooltip.html(`
-        <strong>${d.name}</strong><br/>
-        Album: ${d.album}<br/>
-        Energy: ${d.energy.toFixed(2)}<br/>
-        Valence: ${d.valence.toFixed(2)}
-        `)
-        .style("left", event.pageX + "px")
-        .style("top", event.pageY - 28 + "px");
-    })
-    .on("mouseout", () => {
-        tooltip.transition().duration(200).style("opacity", 0);
-    });
-});
-}
 
 
 function updateButtons() {
@@ -928,4 +959,3 @@ d3.csv("data/swift_data.csv").then(data => {
     renderScene(currentScene);
     updateButtons();
 });
-
