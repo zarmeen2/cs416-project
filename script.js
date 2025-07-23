@@ -481,6 +481,15 @@ function drawAlbumTimeline() {
     .attr("x", 28)
     .attr("y", 30) // now below popupGroup center
     .text("Sept 13, 2009");
+
+    popupGroup3.append("text")
+    .attr("text-anchor", "right")
+    .attr("font-size", "11px")
+    .attr("fill", "#333")
+    .attr("font-size", "14px")
+    .attr("x", -200)
+    .attr("y", -360)
+    .text("Hover over album titles for more info");
     
       // Draw vertical lines for each album
         const lengths = [50, 130, 100, 150, 200, 100, 150, 100, 200];
